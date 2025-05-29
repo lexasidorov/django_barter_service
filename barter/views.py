@@ -4,17 +4,13 @@ from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from django.db.models import Q
-from .models import *
+# from .models import *
 from .serializers import *
 from .forms import *
 
 class AdListCreateView(generics.ListCreateAPIView):
-    # # Пагинация
-    # pagination_class = LimitOffsetPagination
-    # page_size = 10
-
     # Фильтры
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['category', 'condition']
     search_fields = ['title', 'description']
 
