@@ -26,9 +26,9 @@ class Ad(models.Model):
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Автор'), related_name='ads')
     title = models.CharField(max_length=100, verbose_name=_('Название'))
-    is_active = models.BooleanField(verbose_name=_('Активно'))
+    is_active = models.BooleanField(default=True, verbose_name=_('Активно'))
     description = models.CharField(max_length=500, verbose_name=_('Описание'))
-    image_url = models.CharField(max_length=100, verbose_name=_('URL изображения'))
+    image_url = models.CharField(max_length=100, blank=True,     verbose_name=_('URL изображения'))
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
@@ -63,6 +63,7 @@ class ExchangeProposal(models.Model):
     receiver = models.ForeignKey(Ad, related_name='received_proposals', on_delete=models.CASCADE, verbose_name=_('Получатель'))
     comment = models.CharField(max_length=500, verbose_name=_('Комментарий'))
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Создано'))
 
     class Meta:
         verbose_name = _('Предложение обмена')
