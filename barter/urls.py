@@ -1,5 +1,7 @@
 from django.urls import path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from .views import *
+
 
 urlpatterns = [
     # Объявления
@@ -11,18 +13,9 @@ urlpatterns = [
     path('proposals/<int:pk>/', ProposalRetrieveDestroyView.as_view(), name='proposal-detail'),
 ]
 
-#
-# urlpatterns = [
-#     # Объявления
-#     path('ad/detail/', AdDetailView.as_view()),
-#     path('ad/create/', AdCreateView.as_view()),
-#     path('ad/update/', AdUpdateView.as_view()),
-#     path('ad/list/', AdListView.as_view()),
-#     path('ad/delete/', AdDeleteView.as_view()),
-#
-#     # Предложения обмена
-#     path('proposal/detail/', ProposalDetailView.as_view()),
-#     path('proposal/create/', ProposalCreateView.as_view()),
-#     path('proposal/list/', ProposalListView.as_view()),
-#     path('proposal/delete/', ProposalDeleteView.as_view()),
-# ]
+# Документация
+urlpatterns.extend([
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+])
