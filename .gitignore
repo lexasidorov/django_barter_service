@@ -1,0 +1,12 @@
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.env
+.env.*
+.venv/
+.env
+*/migrations/
+/static/
+media/
+.idea/
